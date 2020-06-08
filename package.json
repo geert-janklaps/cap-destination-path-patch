@@ -1,0 +1,34 @@
+{
+  "name": "cap-destination-path-patch",
+  "version": "1.0.0",
+  "description": "CAP patch to allow multiple services to be consumed in a single destination",
+  "repository": "https://github.com/geert-janklaps/cap-destination-path-patch",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@sap/cds": "^3",
+    "express": "^4",
+    "sqlite3": "^4.2.0"
+  },
+  "scripts": {
+    "setup": "npm install && npm run build && npm run start",
+    "start": "npx cds run",
+    "build": " npm run build:cds && npm run deploy && npm run patch",
+    "build:cds": "cds build/all --clean",
+    "deploy": "cds deploy",
+    "diff:restclient": "diff patch/Client-original.js patch/Client-patched.js > patch/Client.diff",
+    "patch": "patch node_modules/@sap/cds-runtime/lib/cds-rest/client/Client.js patch/Client.diff"
+  },
+  "cds": {
+    "requires": {
+      "API_BUSINESS_PARTNER": {
+        "kind": "odata",
+        "model": "srv\\external\\API_BUSINESS_PARTNER",
+        "credentials": {
+          "destination": "S4HCLOUD",
+          "destinationPath": "/sap/opu/odata/sap/API_BUSINESS_PARTNER"
+        }
+      }
+    }
+  }
+}

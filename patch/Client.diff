@@ -1,0 +1,6 @@
+53a54
+>     this.destinationPath = options.credentials && options.credentials.destinationPath
+160c161
+<           queryObject.path
+---
+>           this.destinationPath ? this.destinationPath + queryObject.path : queryObject.path
