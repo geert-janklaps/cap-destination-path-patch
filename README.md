@@ -39,7 +39,8 @@ Make sure that you have the patch command available on your machine. Then you ca
 npm run setup
 ```
 
-to install the dependencies, build, deploy, patch and start the app. The next time you want to start simply run:
+to install the dependencies, build, patch and start the app. 
+The next time you want to start simply run:
 
 ```bash
 npm run start
