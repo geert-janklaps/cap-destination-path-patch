@@ -1,25 +1,46 @@
-# Getting Started
+# SAP Cloud Application Programming Model multiple services in single destination patch
 
-Welcome to your new project.
+This example application demonstrates how multiple destination endpoints can be configured for a single destination.
+This patch introduces a new attribute destinationPath in the credentials part of the configured services:
 
-It contains these folders and files, following our recommended project layout:
+```json
+"cds": {
+    "requires": {
+      "API_BUSINESS_PARTNER": {
+        "kind": "odata",
+        "model": "srv\\external\\API_BUSINESS_PARTNER",
+        "credentials": {
+          "destination": "S4HCLOUD",
+          "destinationPath": "/sap/opu/odata/sap/API_BUSINESS_PARTNER"
+        }
+      }
+    }
+  }
+```
 
-File / Folder | Purpose
----------|----------
-`app/` | content for UI frontends go here
-`db/` | your domain models and data go here
-`srv/` | your service models and code go here
-`package.json` | project metadata and configuration
-`readme.md` | this getting started guide
+If you want to give it a try, please store the following content in the file *default-env.json* the root folder of this project.
 
+```json
+{
+    "destinations": [
+        {
+            "name": "S4HCLOUD",
+            "url": "<replace>",
+            "username": "<replace>",
+            "password": "<replace>"
+        }
+    ]
+}
+```
 
-## Next Steps...
+Make sure that you have the patch command available on your machine. Then you can run:
 
-- Open a new terminal and run  `cds watch`
-- ( in VSCode simply choose _**Terminal** > Run Task > cds watch_ )
-- Start adding content, e.g. a [db/schema.cds](db/schema.cds), ...
+```bash
+npm run setup
+```
 
+to install the dependencies, build, deploy, patch and start the app. The next time you want to start simply run:
 
-## Learn more...
-
-Learn more at https://cap.cloud.sap/docs/get-started/
+```bash
+npm run start
+```
